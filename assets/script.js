@@ -17,13 +17,53 @@ const slides = [
 	}
 ]
 
+//Partie Création carrousel
+	// Création constantes pour les dots
+
+const dotsContainer = document.querySelector(".dots");
+const bannerImg = document.querySelector(".banner-img");
+const bannerText = document.querySelector("#banner p");
+
+
+let currentSlide = 0;
+
+	// Création des div et des class associées pour les dots
+
+slides.forEach((slide, index) => {
+
+	const dot = document.createElement("div");
+	dot.classList.add("dot");
+	if (index === 0) dot.classList.add("dot_selected");
+	dotsContainer.appendChild(dot);
+	dot.addEventListener("click", () => {
+		updateSlide(index);
+	})
+});
+
+	// Création de la fonction update slide
+
+function updateSlide(index){
+	currentSlide = index;
+	bannerImg.src = `./assets/images/slideshow/${slides[index].image}`;
+	bannerText.innerHTML = slides[index].tagLine;
+	const allDots = document.querySelectorAll(".dot");
+	allDots.forEach((dot, i) => {
+		dot.classList.toggle("dot_selected", i === index);
+	});	
+}
+	
+
+	//ajout du listener pour les flèches
+
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 
 arrowLeft.addEventListener("click", () => {
-	console.log("ca marche")
+	currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+	updateSlide(currentSlide);
 });
 
 arrowRight.addEventListener("click", () => {
-	console.log("ca marche")
-})
+	currentSlide = (currentSlide + 1) % slides.length;
+	updateSlide(currentSlide);
+});
