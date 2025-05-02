@@ -30,7 +30,6 @@ let currentSlide = 0;
 	// Création des div et des class associées pour les dots
 
 slides.forEach((slide, index) => {
-
 	const dot = document.createElement("div");
 	dot.classList.add("dot");
 	if (index === 0) dot.classList.add("dot_selected");
@@ -50,6 +49,7 @@ function updateSlide(index){
 	allDots.forEach((dot, i) => {
 		dot.classList.toggle("dot_selected", i === index);
 	});	
+	console.log("Current slide index:", index);
 }
 	
 
